@@ -1,0 +1,5 @@
+module-info.class
+com\mycompany\gradesystem\SecondaryController.class
+com\mycompany\gradesystem\Controller.class
+com\mycompany\gradesystem\PrimaryController.class
+com\mycompany\gradesystem\App.class
