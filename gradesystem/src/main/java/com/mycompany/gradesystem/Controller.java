@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
  */
 public class Controller implements Initializable {
 
-
+    private GradeAnalyser gradeAnalyser;    // Instance variable of GradeAnalyser
     @FXML
     private Button btnDisplayAllGrades;
     @FXML
@@ -49,6 +49,11 @@ public class Controller implements Initializable {
     private Text lblActions;
     @FXML
     private Text lblOutput;
+    
+    public void inject(GradeAnalyser analyser) {
+        this.gradeAnalyser = analyser;
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -60,7 +65,20 @@ public class Controller implements Initializable {
     // Display all grades button
     @FXML
     private void displayAllGradesActionBtn(ActionEvent event) {
+        
         this.txtAreaDisplay.setText("This button displays all grades. Feature arriving soon.");
+        if (gradeAnalyser == null) {
+            this.txtAreaDisplay.setText("Error: GradeAnalyser is not injected.");
+            return;
+        }
+
+        StringBuilder output = new StringBuilder();
+
+        for (Student student : gradeAnalyser.getOrderedList()) {
+            output.append(student).append("\n");
+        }
+
+        this.txtAreaDisplay.setText(output.toString());
     }
     
     // Find Student Id Button

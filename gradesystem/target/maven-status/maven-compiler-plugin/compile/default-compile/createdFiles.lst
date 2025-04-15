@@ -1,3 +1,9 @@
-com\mycompany\gradesystem\App.class
+com\mycompany\gradesystem\GradeAnalyser.class
+com\mycompany\gradesystem\GradeAnalyser$Range.class
 module-info.class
+com\mycompany\gradesystem\GradeAnalyser$RangeValidationResponse.class
 com\mycompany\gradesystem\Controller.class
+com\mycompany\gradesystem\GradeAllocator.class
+com\mycompany\gradesystem\Student.class
+com\mycompany\gradesystem\App.class
+com\mycompany\gradesystem\DataSet.class

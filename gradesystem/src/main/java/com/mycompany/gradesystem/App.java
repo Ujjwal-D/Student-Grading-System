@@ -17,7 +17,21 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("GradingSystem"), 700, 480);
+        FXMLLoader loader = new
+                FXMLLoader(App.class.getResource("GradingSystem.fxml"));
+        Parent root = loader.load();
+        
+        // construct the objects of DataSet and GradeAnalyser
+        DataSet data = new DataSet();
+        GradeAnalyser analyser = new GradeAnalyser(data);
+        
+        // gets the reference to controller object
+        Controller controller = loader.getController();
+        // injects the analyser into controller
+        controller.inject(analyser);
+        
+        //scene = new Scene(loadFXML("GradingSystem"), 700, 480);
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Student Grade System");
         stage.show();
