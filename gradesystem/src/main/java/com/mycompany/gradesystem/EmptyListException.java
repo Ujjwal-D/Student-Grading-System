@@ -10,6 +10,7 @@ package com.mycompany.gradesystem;
  *
  * @author Ujjwal Dhakal (12222900)
  */
+
 public class EmptyListException extends RuntimeException {
     public EmptyListException(String message)
     {

@@ -11,7 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *
+ * This class helps to fetch student details according to id (if valid), range of
+ * total marks (if valid) and statistics of the whole class. It also handles some 
+ * of the exceptions.
+ * 
  * @author Ujjwal Dhakal (12222900)
  */
 public class GradeAnalyser {

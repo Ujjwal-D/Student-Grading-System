@@ -19,9 +19,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 /**
- * FXML Controller class
+ * This FXML Controller class connects GUI side with backend side of the project.
+ * It implements all the button functions in the GUI. 
  *
- * @author Ujjwal
+ * @author Ujjwal Dhakal (12222900)
  */
 public class Controller implements Initializable {
 
@@ -63,7 +64,12 @@ public class Controller implements Initializable {
         // TODO
     }    
     
-    // Display all grades button
+    /**
+     * This button when clicked displays all the grades of the students
+     * 
+     * @param event click event of the button
+     */
+    
     @FXML
     private void displayAllGradesActionBtn(ActionEvent event) {
         
@@ -79,10 +85,15 @@ public class Controller implements Initializable {
             output.append(student).append("\n");
         }
 
-        this.txtAreaDisplay.setText(output.toString());
+        this.txtAreaDisplay.setText(output.toString()); // Display all grades
     }
     
-    // Find Student Id Button
+    /**
+     * This method displays the student details according to provided id if exists
+     * 
+     * @param event click event of the button
+     */
+    
     @FXML
     private void findStudentIdActionBtn(ActionEvent event) {
         String id = txtStudentId.getText().trim();
@@ -90,7 +101,7 @@ public class Controller implements Initializable {
         
         if(student != null)
         {
-            this.txtAreaDisplay.setText(student.toString());
+            this.txtAreaDisplay.setText(student.toString());    // Display Student details if exists
         }
         else
         {
@@ -98,7 +109,13 @@ public class Controller implements Initializable {
         }
     }
     
-    // Results in Range Button
+    /**
+     * This method displays all the student details within certain range of total
+     * marks.
+     * 
+     * @param event click event of the button
+     */
+    
     @FXML
     private void resultsInMarkRangeActionBtn(ActionEvent event) {
         
@@ -107,7 +124,7 @@ public class Controller implements Initializable {
         
         GradeAnalyser.RangeValidationResponse response = gradeAnalyser.validateRanges(lower, upper);
         
-// verifies the result returned after validation.
+        // verifies the result returned after validation.
         if (!response.result())
         {
             this.txtAreaDisplay.setText("Error: " + response.message());
@@ -123,12 +140,17 @@ public class Controller implements Initializable {
                 output.append(s).append("\n");
             }
             
-            this.txtAreaDisplay.setText(output.toString());
+            this.txtAreaDisplay.setText(output.toString()); // displays student details within range 
         }
         
     }
     
-    // Display Statistics Button
+    /**
+     * This method displays statistics of marks of the whole class
+     * 
+     * @param event click event of button
+     */
+    
     @FXML
     private void displayStatisticsActionButton(ActionEvent event) {
             try {
@@ -143,26 +165,36 @@ public class Controller implements Initializable {
                               + "Maximum Marks: " + max + "\n"
                               + "Minimum Marks: " + min);
         } catch (EmptyListException e) {
-            this.txtAreaDisplay.setText("Error: " + e.getMessage());
+            this.txtAreaDisplay.setText("Error: " + e.getMessage());    // Display Statistics 
         }
     }
 
-    // Clear Button
+    /**
+     * This method clears all the text input and output streams in GUI
+     * 
+     * @param event click event of the button
+     */
+    
     @FXML
     private void clearActionBtn(ActionEvent event) {
-        this.txtStudentId.setText("");
-        this.txtMinRange.setText("");
-        this.txtMaxRange.setText("");        
-        this.txtAreaDisplay.setText("");
+        this.txtStudentId.setText("");  // clears textbox
+        this.txtMinRange.setText("");  // clears textbox   
+        this.txtMaxRange.setText("");  // clears textbox        
+        this.txtAreaDisplay.setText("");  // clears text area
     }
-
-    // Exit Button 
+    
+    /**
+     * This method asks for the confirmation to exit 
+     * 
+     * @param event click event of button
+     */
+    
     @FXML
     private void exitActionBtn(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you really want to close the application?");
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                Platform.exit();
+                Platform.exit();    // exits
             }
         });
 

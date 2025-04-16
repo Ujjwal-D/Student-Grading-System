@@ -9,7 +9,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * JavaFX App
+ * This JavaFX App displays the student details, find student details by id, 
+ * find student details with marks in a range, display statistics like Average 
+ * Marks, Maximum Marks, Minimum Marks, Median Marks of the whole class. It also
+ * has features of clearing all the text area and exiting the application. 
+ * 
+ * @author Ujjwal Dhakal (12222900)
  */
 public class App extends Application {
 

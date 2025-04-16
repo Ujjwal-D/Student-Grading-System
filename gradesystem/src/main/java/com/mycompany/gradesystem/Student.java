@@ -5,10 +5,13 @@
 package com.mycompany.gradesystem;
 
 /**
- *
- * @author Ujjwal
+ * This record helps in calculating total marks and formatting student details to
+ * be displayed
+ * 
+ * @author Ujjwal Dhakal (12222900)
  */
-public record Student (String id, String firstName, String lastName, int a1, int a2, int a3, String grade)
+
+public record Student (String id, String firstName, String lastName, int a1, int a2, int a3, String grade) // all student details parameter
 {
       public int total()
       {
