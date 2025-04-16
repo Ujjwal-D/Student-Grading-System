@@ -19,7 +19,7 @@
       <TextField fx:id="txtMinRange" layoutX="187.0" layoutY="242.0" prefHeight="26.0" prefWidth="54.0" />
       <TextField fx:id="txtMaxRange" layoutX="263.0" layoutY="242.0" prefHeight="26.0" prefWidth="54.0" />
       <Text layoutX="249.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="to" wrappingWidth="27.897628784179688" />
-      <TextArea fx:id="txtAreaDisplay" layoutX="332.0" layoutY="127.0" prefHeight="200.0" prefWidth="363.0" style="-fx-font-family: 'Courier New';"  />
+      <TextArea fx:id="txtAreaDisplay" layoutX="332.0" layoutY="127.0" prefHeight="200.0" prefWidth="580.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 13px;" />
       <Text fx:id="lblActions" layoutX="65.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Actions" underline="true">
          <font>
             <Font name="Calibri Bold" size="18.0" />

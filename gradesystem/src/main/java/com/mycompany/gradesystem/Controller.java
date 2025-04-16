@@ -95,7 +95,6 @@ public class Controller implements Initializable {
         {
             this.txtAreaDisplay.setText("Sorry no students are associated with id: " + id);
         }
-        
     }
     
     // Results in Range Button
@@ -107,7 +106,20 @@ public class Controller implements Initializable {
     // Display Statistics Button
     @FXML
     private void displayStatisticsActionButton(ActionEvent event) {
-        this.txtAreaDisplay.setText("This button displays all the statistics. Feature arriving soon.");
+            try {
+                double avg = gradeAnalyser.averageMark();
+                double median = gradeAnalyser.medianMark();
+                int max = gradeAnalyser.maximum();
+                int min = gradeAnalyser.minimum();
+
+                this.txtAreaDisplay.setText("Statistics:\n\n"
+                              + "Average: " + avg + "\n"
+                              + "Median:  " + median + "\n"
+                              + "Maximum: " + max + "\n"
+                              + "Minimum: " + min);
+        } catch (EmptyListException e) {
+            this.txtAreaDisplay.setText("Error: " + e.getMessage());
+        }
     }
 
     // Clear Button

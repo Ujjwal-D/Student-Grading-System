@@ -31,7 +31,7 @@ public class App extends Application {
         controller.inject(analyser);
         
         //scene = new Scene(loadFXML("GradingSystem"), 700, 480);
-        scene = new Scene(root);
+        scene = new Scene(root, 920, 400);
         stage.setScene(scene);
         stage.setTitle("Student Grade System");
         stage.show();
