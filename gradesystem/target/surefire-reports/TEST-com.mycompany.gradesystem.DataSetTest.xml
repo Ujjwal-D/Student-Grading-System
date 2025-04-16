@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.mycompany.gradesystem.GradeAnalyserTest" time="0.061" tests="30" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.mycompany.gradesystem.DataSetTest" time="0.057" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -60,34 +60,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="getStudentRecordsInRangeNoMatchesTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="validateRangesNonNumericTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.017"/>
-  <testcase name="averageMarkWithNegativeMarksTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="findWhenEmptyDataTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="validateRangesEmptyFieldsTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="minimumWithNegativeMarksTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.002"/>
-  <testcase name="medianMarkSameValuesTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="minimumEmptyDataTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.002"/>
-  <testcase name="validateRangesLowerGreaterThanUpperTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="getStudentRecordsInRangeAllMatchTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="getStudentRecordsInRangeOnlyOneMatchTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="findWithNullIdTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="findWhenFoundTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="maximumWithNegativeMarksTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="maximumEmptyDataTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="medianMarkEmptyDataTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="maximumNormalCaseTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="medianMarkOddCountTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="getStudentRecordsInRangeLower0Upper100Test" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="minimumNormalCaseTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="getStudentRecordsInRangeExactBoundsTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="getStudentRecordsInRangeNormalTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="validateRangesOutOfBoundsTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="averageMarkNormalCaseTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="getStudentRecordsInRangeEmptyListTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="findWithIncorrectCaseIdTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="medianMarkEvenCountTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="validateRangesValidTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.001"/>
-  <testcase name="findWhenNotFoundTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
-  <testcase name="averageMarkEmptyDataTest" classname="com.mycompany.gradesystem.GradeAnalyserTest" time="0.0"/>
+  <testcase name="getDataThreeElementsTest" classname="com.mycompany.gradesystem.DataSetTest" time="0.027"/>
+  <testcase name="getDataAbsentFailTest" classname="com.mycompany.gradesystem.DataSetTest" time="0.0"/>
+  <testcase name="getDataSingleStudentTest" classname="com.mycompany.gradesystem.DataSetTest" time="0.0"/>
+  <testcase name="getDataSupplementaryAssessmentTest" classname="com.mycompany.gradesystem.DataSetTest" time="0.0"/>
+  <testcase name="getDataEmptyInputTest" classname="com.mycompany.gradesystem.DataSetTest" time="0.001"/>
+  <testcase name="getDataAlreadySortedTest" classname="com.mycompany.gradesystem.DataSetTest" time="0.0"/>
 </testsuite>

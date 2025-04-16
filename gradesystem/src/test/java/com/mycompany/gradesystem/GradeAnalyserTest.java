@@ -4,6 +4,7 @@
  */
 package com.mycompany.gradesystem;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -141,8 +142,8 @@ public class GradeAnalyserTest {
     @Test
     public void maximumNormalCaseTest() {
         Student[] sdata = {
-            new Student("S1", "A", "B", 15, 15, 15, "C"),  // 45
-            new Student("S2", "C", "D", 25, 25, 25, "D")   // 75
+            new Student("S1", "Al", "Bl", 15, 15, 15, "C"),  // 45
+            new Student("S2", "Cl", "Dl", 25, 25, 25, "D")   // 75
         };
         GradeAnalyser ga = new GradeAnalyser(sdata);
         int result = ga.maximum();
@@ -152,8 +153,8 @@ public class GradeAnalyserTest {
     @Test
     public void maximumWithNegativeMarksTest() {
         Student[] sdata = {
-            new Student("S1", "A", "B", -10, -10, -10, "F"),  // -30
-            new Student("S2", "C", "D", -5, -5, -5, "F")      // -15
+            new Student("S1", "Al", "Bl", -10, -10, -10, "F"),  // -30
+            new Student("S2", "Cl", "Dl", -5, -5, -5, "F")      // -15
         };
         GradeAnalyser ga = new GradeAnalyser(sdata);
         int result = ga.maximum();
@@ -177,8 +178,8 @@ public class GradeAnalyserTest {
     @Test
     public void minimumNormalCaseTest() {
         Student[] sdata = {
-            new Student("S1", "A", "B", 15, 25, 35, "C"),  // 75
-            new Student("S2", "C", "D", 5, 10, 10, "F")    // 25
+            new Student("S1", "Am", "Bm", 15, 25, 35, "D"),  // 75
+            new Student("S2", "Cm", "Dm", 5, 10, 10, "F")    // 25
         };
         GradeAnalyser ga = new GradeAnalyser(sdata);
         int result = ga.minimum();
@@ -188,8 +189,8 @@ public class GradeAnalyserTest {
     @Test
     public void minimumWithNegativeMarksTest() {
         Student[] sdata = {
-            new Student("S1", "A", "B", -20, 0, 0, "F"),     // -20
-            new Student("S2", "C", "D", -5, -5, -5, "F")     // -15
+            new Student("S1", "An", "Bn", -20, 0, 0, "F"),     // -20
+            new Student("S2", "Cn", "Dn", -5, -5, -5, "F")     // -15
         };
         GradeAnalyser ga = new GradeAnalyser(sdata);
         int result = ga.minimum();
@@ -253,5 +254,209 @@ public class GradeAnalyserTest {
         GradeAnalyser ga = new GradeAnalyser(sdata);
         assertThrows(EmptyListException.class, () -> ga.medianMark());
     }
+    
+    /**
+     * The following tests are for validateRanges() in 
+     * com.mycompany.gradesystem.GradeAnalyser.java
+     * 
+     */
+    
+    // tests for valid input range
+    @Test
+    public void validateRangesValidTest() {
+        // Create a GradeAnalyser with no student data
+        GradeAnalyser ga = new GradeAnalyser(new Student[]{});
+
+        // Validate a correct range input
+        GradeAnalyser.RangeValidationResponse res = ga.validateRanges("40", "80");
+
+        //Expect valid result with correct bounds
+        assertTrue(res.result());
+        assertNotNull(res.range());
+        assertEquals(40, res.range().lower());
+        assertEquals(80, res.range().upper());
+        assertEquals("", res.message());
+    }
+    
+    // tests for missing input range
+    @Test
+    public void validateRangesEmptyFieldsTest() {
+        //Validate when both fields are empty
+        GradeAnalyser ga = new GradeAnalyser(new Student[]{});
+        GradeAnalyser.RangeValidationResponse res = ga.validateRanges("", "");
+
+        // Validation should fail with appropriate message
+        assertFalse(res.result());
+        assertNull(res.range());
+        assertEquals("both bounds must be specified", res.message());
+    }
+    
+    // test for non-numeric values passed
+    @Test
+    public void validateRangesNonNumericTest() {
+        // Validate when lower bound is not a number
+        GradeAnalyser ga = new GradeAnalyser(new Student[]{});
+        GradeAnalyser.RangeValidationResponse res = ga.validateRanges("a", "80");
+
+        // Validation should fail with numeric input error
+        assertFalse(res.result());
+        assertNull(res.range());
+        assertEquals("Range fields must be positive numbers (digits only)", res.message());
+    }
+    
+    // test for out-of-bounds ranges
+    @Test
+    public void validateRangesOutOfBoundsTest() {
+        // Validate when upper bound exceeds allowed maximum
+        GradeAnalyser ga = new GradeAnalyser(new Student[]{});
+        GradeAnalyser.RangeValidationResponse res = ga.validateRanges("10", "150");
+
+        // Validation should fail due to upper bound > 100
+        assertFalse(res.result());
+        assertNull(res.range());
+        assertEquals("lower bound must be >=0 and upper bound must be <=100", res.message());
+    }
+    
+    // test for lower bound greater than upper bound
+    @Test
+    public void validateRangesLowerGreaterThanUpperTest() {
+        // Validate when lower bound is greater than upper bound
+        GradeAnalyser ga = new GradeAnalyser(new Student[]{});
+        GradeAnalyser.RangeValidationResponse res = ga.validateRanges("80", "40");
+
+        // Validation should fail due to incorrect ordering
+        assertFalse(res.result());
+        assertNull(res.range());
+        assertEquals("Upper bound must be greater than lower bound", res.message());
+    }
+    
+    /**
+    * Unit tests for the getStudentRecordsInRange(int lower, int upper) method
+    * in the GradeAnalyser class.
+    *
+    * These tests cover:
+    * - normal matches
+    * - Empty student list
+    * - No matches in range
+    * - All students matching the range
+    * - Students with total marks exactly on the bounds
+    * - Lower = 0 and Upper = 100 edge case
+    */
+    
+    // test for normal range
+   @Test
+   public void getStudentRecordsInRangeNormalTest() {
+       //Setup students with different total marks
+       Student[] sdata = {
+           new Student("S1", "John", "Doe", 10, 20, 20, "P"),   // total = 50
+           new Student("S2", "Jane", "Smith", 20, 30, 40, "HD"),// total = 90
+           new Student("S3", "Alex", "Brown", 5, 10, 15, "F")   // total = 30
+       };
+       GradeAnalyser ga = new GradeAnalyser(sdata);
+
+       // Filter range 40–95
+       List<Student> result = ga.getStudentRecordsInRange(40, 95);
+
+       // Expect 2 matches (S1 and S2)
+       assertEquals(2, result.size());
+   }
+   
+   // test with empty list
+   @Test
+   public void getStudentRecordsInRangeEmptyListTest() {
+       // Empty student data
+       GradeAnalyser ga = new GradeAnalyser(new Student[]{});
+
+       //Call method with any range
+       List<Student> result = ga.getStudentRecordsInRange(0, 100);
+
+       // Expect no matches
+       assertTrue(result.isEmpty());
+   }
+
+   // test with no matching marks
+   @Test
+   public void getStudentRecordsInRangeNoMatchesTest() {
+       // Students all below range
+       Student[] sdata = {
+           new Student("S1", "John", "Doyle", 5, 5, 5, "F"),   // total = 15
+           new Student("S2", "Janet", "Smith", 10, 10, 10, "F") // total = 30
+       };
+       GradeAnalyser ga = new GradeAnalyser(sdata);
+
+       // Range excludes all students
+       List<Student> result = ga.getStudentRecordsInRange(50, 100);
+
+       // No matches
+       assertTrue(result.isEmpty());
+   }
+   
+   // test with same range and marks 
+   @Test
+   public void getStudentRecordsInRangeAllMatchTest() {
+       // All students within the range
+       Student[] sdata = {
+           new Student("S1", "Allen", "Bob", 10, 20, 30, "P"),  // total = 60
+           new Student("S2", "Catherine", "Layman", 20, 20, 20, "P")   // total = 60
+       };
+       GradeAnalyser ga = new GradeAnalyser(sdata);
+
+       // Full inclusive range that covers all
+       List<Student> result = ga.getStudentRecordsInRange(60, 60);
+
+       // Both students match exactly
+       assertEquals(2, result.size());
+   }
+
+   // boundary value test 
+   @Test
+   public void getStudentRecordsInRangeExactBoundsTest() {
+       // One student on each bound
+       Student[] sdata = {
+           new Student("S1", "Low", "Bound", 10, 10, 10, "F"), // total = 30
+           new Student("S2", "High", "Bound", 20, 30, 50, "HD") // total = 100
+       };
+       GradeAnalyser ga = new GradeAnalyser(sdata);
+
+       // Search from 30 to 100 inclusive
+       List<Student> result = ga.getStudentRecordsInRange(30, 100);
+
+       // Both should be included
+       assertEquals(2, result.size());
+   }
+   
+   // edge cases test.
+   @Test
+   public void getStudentRecordsInRangeLower0Upper100Test() {
+       // Arrange: Students with total marks at edge values
+       Student[] sdata = {
+           new Student("S1", "Edge", "Low", 0, 0, 0, "F"),     // total = 0
+           new Student("S2", "Edge", "High", 20, 30, 50, "HD") // total = 100
+       };
+       GradeAnalyser ga = new GradeAnalyser(sdata);
+
+       // Act: Full boundary range
+       List<Student> result = ga.getStudentRecordsInRange(0, 100);
+
+       // Assert: Both should be returned
+       assertEquals(2, result.size());
+   }
+
+   @Test
+   public void getStudentRecordsInRangeOnlyOneMatchTest() {
+       // Only one student should fall in the range
+       Student[] sdata = {
+           new Student("S1", "Amy", "Williams", 5, 5, 5, "F"),     // total = 15
+           new Student("S2", "Rhoda", "King", 20, 30, 40, "HD")  // total = 90
+       };
+       GradeAnalyser ga = new GradeAnalyser(sdata);
+
+       // Range that includes only second student
+       List<Student> result = ga.getStudentRecordsInRange(80, 95);
+
+       // One match
+       assertEquals(1, result.size());
+   }
+
     
 }

@@ -5,6 +5,7 @@
 package com.mycompany.gradesystem;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -100,7 +101,31 @@ public class Controller implements Initializable {
     // Results in Range Button
     @FXML
     private void resultsInMarkRangeActionBtn(ActionEvent event) {
-        this.txtAreaDisplay.setText("This button displays results of student within the range. Feature arriving soon.");
+        
+        String lower = this.txtMinRange.getText();  // collecting min range input field.
+        String upper = this.txtMaxRange.getText();  // collecting max range input field.
+        
+        GradeAnalyser.RangeValidationResponse response = gradeAnalyser.validateRanges(lower, upper);
+        
+// verifies the result returned after validation.
+        if (!response.result())
+        {
+            this.txtAreaDisplay.setText("Error: " + response.message());
+        }
+        else
+        {
+            List<Student> results = gradeAnalyser.getStudentRecordsInRange(
+                    response.range().lower(), response.range().upper());
+            
+            StringBuilder output = new StringBuilder ("Students in Range:\n");
+            for(Student s : results)
+            {
+                output.append(s).append("\n");
+            }
+            
+            this.txtAreaDisplay.setText(output.toString());
+        }
+        
     }
     
     // Display Statistics Button
@@ -113,10 +138,10 @@ public class Controller implements Initializable {
                 int min = gradeAnalyser.minimum();
 
                 this.txtAreaDisplay.setText("Statistics:\n\n"
-                              + "Average: " + avg + "\n"
-                              + "Median:  " + median + "\n"
-                              + "Maximum: " + max + "\n"
-                              + "Minimum: " + min);
+                              + "Average Marks: " + avg + "\n"
+                              + "Median Marks:  " + median + "\n"
+                              + "Maximum Marks: " + max + "\n"
+                              + "Minimum Marks: " + min);
         } catch (EmptyListException e) {
             this.txtAreaDisplay.setText("Error: " + e.getMessage());
         }

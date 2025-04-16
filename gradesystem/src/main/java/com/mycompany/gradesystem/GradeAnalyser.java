@@ -104,6 +104,61 @@ public class GradeAnalyser {
     }
     
     /**
+     * This method helps to check the data in the lower to upper bound of marks
+     * range.
+     * 
+     * @param lowerMark Minimum marks to start search
+     * @param upperMark Maximum marks to stop search
+     * 
+     * @return a RangeValidationResponse object with three parameters. 
+     */
+    
+    public RangeValidationResponse validateRanges(String lowerMark, String upperMark) {
+        if (lowerMark == null || upperMark == null || lowerMark.isEmpty() || upperMark.isEmpty()) {
+            return new RangeValidationResponse(false, null, "both bounds must be specified");
+        }
+
+        int lower, upper;   // lower bound and upper bound marks
+        try {
+            lower = Integer.parseInt(lowerMark);
+            upper = Integer.parseInt(upperMark);
+        } catch (NumberFormatException e) {
+            return new RangeValidationResponse(false, null, "Range fields must be positive numbers (digits only)");
+        }
+
+        if (lower < 0 || upper > 100) {
+            return new RangeValidationResponse(false, null, "lower bound must be >=0 and upper bound must be <=100");
+        }
+
+        if (lower > upper) {
+            return new RangeValidationResponse(false, null, "Upper bound must be greater than lower bound");
+        }
+
+        return new RangeValidationResponse(true, new Range(lower, upper), "");
+    }
+    
+    /**
+     * This method creates the list of all students falling under valid marks range.
+     * 
+     * @param lowerMark minimum mark to start range
+     * @param upperMark maximum mark to end range
+     * 
+     * @return list of all students falling under mark range.
+     */
+    
+    public List<Student> getStudentRecordsInRange(int lowerMark, int upperMark) {
+        List<Student> result = new ArrayList<>(); // new list
+        for (Student s : orderedList) {
+            int total = s.total();
+            if (total >= lowerMark && total <= upperMark) {
+                result.add(s);  // add student in the list within the range. 
+            }
+        }
+        return result;
+    }
+
+    
+    /**
      * This method calculates the average marks of the whole class.
      * 
      * @return average marks of the whole class in normal run.
@@ -213,6 +268,4 @@ public class GradeAnalyser {
 
         return median;
     }
-
-
 }
