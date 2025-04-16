@@ -84,7 +84,18 @@ public class Controller implements Initializable {
     // Find Student Id Button
     @FXML
     private void findStudentIdActionBtn(ActionEvent event) {
-        this.txtAreaDisplay.setText("This button find the students through their ids. Feature arriving soon.");
+        String id = txtStudentId.getText().trim();
+        Student student = gradeAnalyser.find(id);
+        
+        if(student != null)
+        {
+            this.txtAreaDisplay.setText(student.toString());
+        }
+        else
+        {
+            this.txtAreaDisplay.setText("Sorry no students are associated with id: " + id);
+        }
+        
     }
     
     // Results in Range Button

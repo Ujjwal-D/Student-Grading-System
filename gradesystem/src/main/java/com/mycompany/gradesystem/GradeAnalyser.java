@@ -80,6 +80,18 @@ public class GradeAnalyser {
         }
     }
     
+    /**
+     * This method fetches student details if available as per their student id.
+     * 
+     * @param id Student id parameter, not null
+     * @return student details if exist or null.
+     */
+    
+    public Student find (String id)
+    {
+        return studentHashTable.get(id);    // fetches student details if exists and null if not.
+    }
+    
     public Student[] getOrderedList() {
         return orderedList.toArray(new Student[0]);
     }
